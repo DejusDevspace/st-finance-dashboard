@@ -3,6 +3,10 @@ from __future__ import annotations
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
+import os
+import dotenv
+_ = dotenv.load_dotenv()
+
 import pandas as pd
 import streamlit as st
 
@@ -50,9 +54,9 @@ def main() -> None:
         st.header("Data")
         sheet_url = st.text_input(
             "Google Sheets URL",
-            value="https://docs.google.com/spreadsheets/d/1nTnLC8MPAxJASRhnYFqWL-sIYlfcrc71Y0MNmtvuRAg/edit?usp=sharing",
+            value=os.getenv("GOOGLE_SHEET_URL"),
         )
-        tab_name = st.text_input("Tab name", value="Sheet1")
+        tab_name = st.text_input("Tab name", value=os.getenv("GOOGLE_SHEET_TAB_NAME"))
 
         if st.button("Refresh data"):
             st.cache_data.clear()
